@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <div id="welcome"></div>
+        <button onclick="logout()">Logout</button>
+        <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+        <h2>Dashboard Stats</h2>
+        <div id="stats"></div>
+
+        <h2>Export Reports</h2>
+        <button onclick="exportCSV('books')">Download Books CSV</button>
+        <button onclick="exportCSV('transactions')">Download Transactions CSV</button>
+
+        <h2>Add Book</h2>
+        <input type="text" id="title" placeholder="Title">
+        <input type="text" id="author" placeholder="Author">
+        <input type="text" id="isbn" placeholder="ISBN">
+        <button onclick="addBook()">Add Book</button>
+
+        <h2>Manage Books</h2>
+        <input type="text" id="searchInput" placeholder="Search books...">
+        <button onclick="searchBooks()">Search</button>
+
+        <div id="bookList"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

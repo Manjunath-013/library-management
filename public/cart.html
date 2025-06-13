@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Your Cart</h1>
+    <div id="cartItems"></div>
+
+    <h2>Payment</h2>
+    <form id="paymentForm" onsubmit="processPayment(event)">
+      <label>Select Payment Method:</label><br />
+      <input type="radio" name="payment" value="upi" required /> UPI
+      <input type="radio" name="payment" value="card" required /> Card
+      <br /><br />
+      <input type="text" placeholder="Name on Card / UPI ID" required /><br />
+      <button type="submit">Checkout</button>
+    </form>
+  </div>
+  <script>
+    function getCart() {
+      return JSON.parse(localStorage.getItem("cart") || "[]");
+    }
+
+    function renderCart() {
+      const cart = getCart();
+      const container = document.getElementById("cartItems");
+      container.innerHTML = "";
+
+      if (cart.length === 0) {
+        container.innerHTML = "<p>Your cart is empty.</p>";
+        return;
+      }
+
+      const ul = document.createElement("ul");
+      cart.forEach((book, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${book.title} by ${book.author}`;
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.onclick = () => {
+          cart.splice(index, 1);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          renderCart();
+        };
+        li.appendChild(removeBtn);
+        ul.appendChild(li);
+      });
+      container.appendChild(ul);
+    }
+
+    function processPayment(event) {
+      event.preventDefault();
+      localStorage.removeItem("cart");
+      window.location.href = "thankyou.html";
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
